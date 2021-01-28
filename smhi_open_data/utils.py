@@ -15,6 +15,6 @@ def microseconds2date(microseconds: float) -> datetime:
 
 def try_parse_float(x: Union[str, float, int]) -> Union[float, str]:
     try:
-        return float(x):
+        return float(x)
     except ValueError:
         return x
