@@ -53,9 +53,11 @@ class SMHIOpenDataClient:
             service=f"parameter/{parameter.value}.json")
         return res['station']
 
-    def get_station_parameters(self, station_id: int) -> List[Parameter]:
+    def get_station_parameters(self,
+                               station_id: int,
+                               parameter_set: List[Parameter] = list(Parameter)) -> List[Parameter]:
         parameters = set([])
-        for parameter in Parameter:
+        for parameter in parameter_set:
             for station in self.get_parameter_stations(parameter=parameter):
                 if station['id'] == station_id:
                     parameters.add(parameter)
