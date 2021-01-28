@@ -5,7 +5,7 @@ import requests
 from tenacity import retry, stop_after_attempt, wait_random
 
 from smhi_open_data.enums import Parameter
-from smhi_open_data.utils import date2microseconds
+from smhi_open_data.utils import try_parse_float
 
 
 class SMHIOpenDataClient:
@@ -126,7 +126,7 @@ class SMHIOpenDataClient:
             values.append({
                 'parameter_id': parameter.value,
                 'timestamp': value['date'],
-                'value': value['value'],
+                'value': try_parse_float(value['value']),
                 'station': x['key'],
             })
 
