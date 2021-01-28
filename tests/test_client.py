@@ -36,6 +36,18 @@ class TestClient(unittest.TestCase):
         self.assertIsInstance(parameter, Parameter, 'Returned value was not a Parameter object.')
         self.assertEqual(parameter, Parameter.TemperaturePast1h, 'Wrong parameter returned.')
 
+    def test_get_parameter_stations(self):
+        stations = self.client.get_parameter_stations(parameter=Parameter.TemperaturePast1h)
+        self.assertIsInstance(stations, list, 'Returned stations was not a list.')
+        self.assertGreater(len(stations), 0, 'No stations returned.')
+        self.assertIsInstance(stations[0], dict, 'Returned stations were not dicts.')
+
+    def test_get_station_parameters(self):
+        parameters = self.client.get_station_parameters(station_id=173010)
+        self.assertIsInstance(parameters, list, 'Returned parameters was not a list.')
+        self.assertGreater(len(parameters), 0, 'No parameters returned.')
+        self.assertIsInstance(parameters[0], Parameter, 'Returned parameters were not parameter nums.')
+
 
 if __name__ == '__main__':
     unittest.main()

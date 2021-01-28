@@ -30,6 +30,9 @@ stations = client.get_stations()
 # Get available parameters
 parameters = client.list_parameters()
 
+# Get available parameters at station
+parameters_station = client.get_station_parameters(station_id=173010)
+
 # Get temperature observations from available stations from past hour
 observations = client.get_latest_observations(
     parameter=Parameter.TemperaturePast1h)
