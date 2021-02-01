@@ -119,16 +119,17 @@ class SMHIOpenDataClient:
 
         values = []
         for x in res['station']:
-            value = x['value']
-            if value is None or len(value) == 0:
+            value_list = x['value']
+            if value_list is None:
                 continue
-            value = value[0]
-            values.append({
-                'parameter_id': parameter.value,
-                'timestamp': value['date'],
-                'value': try_parse_float(value['value']),
-                'station': x['key'],
-            })
+
+            for value in value_list:
+                values.append({
+                    'parameter_id': parameter.value,
+                    'timestamp': value['date'],
+                    'value': try_parse_float(value['value']),
+                    'station': x['key'],
+                })
 
         return values
 
