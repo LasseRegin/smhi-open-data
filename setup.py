@@ -15,7 +15,7 @@ with open(os.path.join(DIR, "requirements.txt"), "r") as f:
 
 setuptools.setup(
     name="smhi-open-data",
-    version="0.0.7",
+    version="0.0.8",
     author="Lasse Regin Nielsen",
     author_email="lasseregin@gmail.com",
     description="Simple Python interface to the Swedish Meteorological and Hydrological Institute's (SMHI).",

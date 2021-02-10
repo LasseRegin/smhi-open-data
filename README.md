@@ -27,6 +27,11 @@ client = SMHIOpenDataClient()
 # Get all stations
 stations = client.get_stations()
 
+# Get closest station
+closest_station = client.get_closest_station(
+    latitude=55.707722,
+    longitude=12.562119)
+
 # Get available parameters
 parameters = client.list_parameters()
 

@@ -48,6 +48,10 @@ class TestClient(unittest.TestCase):
         self.assertGreater(len(parameters), 0, 'No parameters returned.')
         self.assertIsInstance(parameters[0], Parameter, 'Returned parameters were not parameter nums.')
 
+    def test_get_closest_station(self):
+        station = self.client.get_closest_station(latitude=55.707722, longitude=12.562119)
+        self.assertIsInstance(station, dict, 'Returned station was not a dict.')
+
 
 if __name__ == '__main__':
     unittest.main()

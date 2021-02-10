@@ -5,7 +5,7 @@ import requests
 from tenacity import retry, stop_after_attempt, wait_random
 
 from smhi_open_data.enums import Parameter
-from smhi_open_data.utils import try_parse_float
+from smhi_open_data.utils import try_parse_float, distance
 
 
 class SMHIOpenDataClient:
@@ -161,3 +161,32 @@ class SMHIOpenDataClient:
             Parameter: Parameter enum object.
         """
         return Parameter(parameter_id)
+
+    def get_closest_station(self, latitude: float, longitude: float) -> List[Dict[str, Any]]:
+        """Get closest weather station from given coordinates.
+
+        Args:
+            latitude (float): Latitude coordinate.
+            longitude (float): Longitude coordinate.
+
+        Returns:
+            List[Dict[str, Any]]: Closest weather station.
+        """
+        stations = self.get_stations()
+        closest_station, closests_dist = None, 1e10
+        for station in stations:
+            lat, lon = station.get('latitude'), station.get('longitude')
+            if lat is None or lon is None:
+                continue
+
+            # Calculate distance
+            dist = distance(
+                lat1=latitude,
+                lon1=longitude,
+                lat2=lat,
+                lon2=lon,
+            )
+
+            if dist < closests_dist:
+                closests_dist, closest_station = dist, station
+        return closest_station
